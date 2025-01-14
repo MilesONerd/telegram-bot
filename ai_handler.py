@@ -112,7 +112,7 @@ class AIModelHandler:
         model_key: Optional[str] = None,
         max_length: int = 100,
         temperature: float = 0.3,
-        top_p: float = 0.9
+        top_p: float = 0.7
     ) -> str:
         """
         Generate a response using the specified model.
