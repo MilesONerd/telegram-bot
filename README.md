@@ -76,7 +76,8 @@ telegram-bot/
 ├── ai_handler.py       # AI model handling and text generation
 ├── requirements.txt    # Python dependencies
 ├── .env.example        # Environment variables template
-└── README.md          # Project documentation
+├── README.md          # Project documentation
+└── LICENSE            # Project License
 ```
 
 ## Development Status
