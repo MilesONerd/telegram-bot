@@ -91,8 +91,8 @@ telegram-bot/
 
 ## License
 
-This project is proprietary and confidential. All rights reserved.
+This project is [BSD 3-Clause License](https://github.com/MilesONerd/telegram-bot/blob/main/LICENSE). All rights reserved to [Enzo Fuke (MilesONerd)](https://milesonerd.github.io).
 
 ## Author
 
-Created by MilesONerd
+Created by [MilesONerd](https://github.com/MilesONerd)
