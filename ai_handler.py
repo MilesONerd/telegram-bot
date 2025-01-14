@@ -137,6 +137,9 @@ class AIModelHandler:
             tokenizer = self.tokenizers[model_key]
             
             # Prepare input
+            if tokenizer.pad_token is None:
+                tokenizer.add_special_tokens({'pad_token': '[PAD]'})
+            
             inputs = tokenizer(
                 text,
                 return_tensors="pt",
