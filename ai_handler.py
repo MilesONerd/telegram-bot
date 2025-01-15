@@ -112,7 +112,7 @@ class AIModelHandler:
         model_key: Optional[str] = None,
         max_length: int = 300,
         temperature: float = 0.2,
-        top_p: float = 0.4
+        top_p: float = 0.4,
         max_attempts: int = 5
     ) -> str:
         """
