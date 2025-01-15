@@ -113,6 +113,7 @@ class AIModelHandler:
         max_length: int = 300,
         temperature: float = 0.2,
         top_p: float = 0.4
+        max_attempts: int = 5
     ) -> str:
         """
         Generate a response using the specified model.
@@ -123,6 +124,7 @@ class AIModelHandler:
             max_length: Maximum length of generated text
             temperature: Sampling temperature (higher = more creative)
             top_p: Nucleus sampling parameter
+            max_attempts: Maximum number of attempts to generate a valid response
             
         Returns:
             str: Generated response text
@@ -147,7 +149,13 @@ class AIModelHandler:
                 max_length=512,
                 padding=True
             ).to(model.device)
-            
+
+            attempts = 0
+            response = ""
+
+            while attempts < max_attempts:
+                attempts += 1
+
             # Generate response
             with torch.no_grad():
                 outputs = model.generate(
@@ -162,8 +170,15 @@ class AIModelHandler:
                 )
             
             # Decode and return response
-            response = tokenizer.decode(outputs[0], skip_special_tokens=True)
-            return response.strip()
+            response = tokenizer.decode(outputs[0], skip_special_tokens=True).strip()
+
+            if len(response.split()) > 3 and response != text:
+                break
+
+        if attempts == max_attempts and (not response or response == text):
+            return "Sorry, I could not generate a meaningful response after multiple attempts."
+            
+        return response
             
         except Exception as e:
             logger.error(f"Error generating response: {str(e)}")
