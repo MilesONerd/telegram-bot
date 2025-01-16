@@ -73,34 +73,34 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         if len(user_message.split()) > 100:  # Long messages
             # Use BART for summarization first
             summary = await ai_handler.summarize_text(user_message)
-            # Then use GPT-2 for response generation
+            # Then use Llama 3.3 for response generation
             response = await ai_handler.generate_response(
                 f"Based on this summary: {summary}\nGenerate a helpful response:",
-                model_key='gpt2',
+                model_key='llama',
                 max_length=200
             )
         elif any(keyword in user_message.lower() for keyword in ['summarize', 'summary', 'tldr']):
             # Explicit summarization request
             response = await ai_handler.summarize_text(user_message)
-        # Use GPT-2 for conversational queries
+        # Use Llama 3.3 for conversational queries
         elif any(keyword in user_message.lower() for keyword in ['chat', 'conversation', 'talk']):
             response = await ai_handler.generate_response(
                 user_message,
-                model_key='gpt2',
+                model_key='llama',
                 max_length=200
             )
         elif len(user_message.split()) < 10:  # Short queries
-            # Use GPT-2 for quick responses to short queries
+            # Use Llama 3.3 for quick responses to short queries
             response = await ai_handler.generate_response(
                 user_message,
-                model_key='gpt2',
+                model_key='llama',
                 max_length=100
             )
         else:
-            # Default to GPT-2 for general responses
+            # Default to Llama 3.3 for general responses
             response = await ai_handler.generate_response(
                 user_message,
-                model_key='gpt2',
+                model_key='llama',
                 max_length=150
             )
         
