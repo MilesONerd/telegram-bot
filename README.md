@@ -1,6 +1,6 @@
 # MilesONerd AI Telegram Bot
 
-An intelligent Telegram bot powered by advanced AI models and internet search capabilities. The bot uses Llama 3.3 for text generation and BART for text summarization, with future plans for internet search integration.
+An intelligent Telegram bot powered by advanced AI models and internet search capabilities. The bot uses Llama 3.1-Nemotron for text generation and BART for text summarization, with future plans for internet search integration.
 
 ## Features
 
@@ -83,7 +83,7 @@ telegram-bot/
 ## Development Status
 
 - [x] Basic bot implementation
-- [x] Llama 3.3 integration
+- [x] Llama 3.1-Nemotron integration
 - [x] BART integration
 - [ ] Internet search integration
 - [ ] Continuous learning implementation
