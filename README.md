@@ -55,7 +55,7 @@ python bot.py
 ## Message Handling
 
 The bot processes messages differently based on their content:
-- Short questions (< 10 words): Quick responses using GPT-2
+- Short questions (< 10 words): Quick responses using Llama 3.3
 - Long messages (> 100 words): Summarization using BART + detailed response
 - Messages containing 'summarize' or 'tldr': Text summarization
 - Chat-related queries: Optimized conversation handling
@@ -65,7 +65,7 @@ The bot processes messages differently based on their content:
 
 - `TELEGRAM_BOT_TOKEN`: Your Telegram Bot API token (required)
 - `SERPAPI_API_KEY`: Google Search API key (optional, for future use)
-- `DEFAULT_MODEL`: Default AI model to use (default: gpt2)
+- `DEFAULT_MODEL`: Default AI model to use (default: llama)
 - `ENABLE_CONTINUOUS_LEARNING`: Enable/disable learning capabilities (default: true)
 
 ## Project Structure
@@ -83,7 +83,7 @@ telegram-bot/
 ## Development Status
 
 - [x] Basic bot implementation
-- [x] GPT-2 integration
+- [x] Llama 3.3 integration
 - [x] BART integration
 - [ ] Internet search integration
 - [ ] Continuous learning implementation
