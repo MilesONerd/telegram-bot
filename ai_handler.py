@@ -32,7 +32,7 @@ class AIModelHandler:
         # Model configurations
         self.model_configs = {
             'llama': {
-                'name': 'meta-llama/Llama-3.3-70B-Instruct',
+                'name': 'nvidia/Llama-3.1-Nemotron-70B-Instruct-HF',
                 'type': 'causal',
                 'task': 'text-generation'
             },
