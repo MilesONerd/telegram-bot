@@ -31,8 +31,8 @@ class AIModelHandler:
         
         # Model configurations
         self.model_configs = {
-            'gpt2': {
-                'name': 'openai-community/gpt2',
+            'llama': {
+                'name': 'meta-llama/Llama-3.3-70B-Instruct',
                 'type': 'causal',
                 'task': 'text-generation'
             },
@@ -79,24 +79,24 @@ class AIModelHandler:
                 logger.error(f"Error loading BART model: {str(e)}")
                 return False
             
-            # Initialize GPT-2 for general text generation
-            logger.info(f"Loading GPT-2 model: {self.model_configs['gpt2']['name']}")
+            # Initialize Llama 3.3 for general text generation
+            logger.info(f"Loading Llama 3.3 model: {self.model_configs['llama']['name']}")
             try:
-                self.tokenizers['gpt2'] = AutoTokenizer.from_pretrained(
-                    self.model_configs['gpt2']['name'],
+                self.tokenizers['llama'] = AutoTokenizer.from_pretrained(
+                    self.model_configs['llama']['name'],
                     local_files_only=False
                 )
-                logger.info("GPT-2 tokenizer loaded successfully")
+                logger.info("Llama 3.3 tokenizer loaded successfully")
                 
-                self.models['gpt2'] = AutoModelForCausalLM.from_pretrained(
-                    self.model_configs['gpt2']['name'],
+                self.models['llama'] = AutoModelForCausalLM.from_pretrained(
+                    self.model_configs['llama']['name'],
                     device_map='auto' if torch.cuda.is_available() else None,
                     torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
                     local_files_only=False
                 )
-                logger.info("GPT-2 model loaded successfully")
+                logger.info("Llama 3.3 model loaded successfully")
             except Exception as e:
-                logger.error(f"Error loading GPT-2 model: {str(e)}")
+                logger.error(f"Error loading Llama 3.3 model: {str(e)}")
                 return False
             
             logger.info("All models initialized successfully")
