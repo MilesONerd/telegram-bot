@@ -129,58 +129,58 @@ class AIModelHandler:
         Returns:
             str: Generated response text
         """
-    try:
-        model_key = model_key or self.default_model
-        
-        if model_key not in self.models:
-            raise ValueError(f"Model {model_key} not found")
-        
-        model = self.models[model_key]
-        tokenizer = self.tokenizers[model_key]
-        
-        # Prepare input
-        inputs = tokenizer(
-            text,
-            return_tensors="pt",
-            truncation=True,
-            max_length=512,
-            padding=True
-        ).to(model.device)
-        
-        # Attempts to generate a response
-        attempts = 0
-        response = ""
-        
-        while attempts < max_attempts:
-            attempts += 1
+        try:
+            model_key = model_key or self.default_model
             
-            # Generate response
-            with torch.no_grad():
-                outputs = model.generate(
-                    **inputs,
-                    max_length=max_length,
-                    num_return_sequences=1,
-                    temperature=temperature,
-                    top_p=top_p,
-                    do_sample=True,
-                    pad_token_id=tokenizer.pad_token_id,
-                    eos_token_id=tokenizer.eos_token_id
-                )
+            if model_key not in self.models:
+                raise ValueError(f"Model {model_key} not found")
             
-            # Decode response
-            response = tokenizer.decode(outputs[0], skip_special_tokens=True).strip()
+            model = self.models[model_key]
+            tokenizer = self.tokenizers[model_key]
             
-            # Check that the answer is not repetitive or meaningless
-            if len(response.split()) > 3 and response != text:  # Check if the response is valid
-                break  # If the response is valid, exit the loop
+            # Prepare input
+            inputs = tokenizer(
+                text,
+                return_tensors="pt",
+                truncation=True,
+                max_length=512,
+                padding=True
+            ).to(model.device)
             
-        if attempts == max_attempts and (not response or response == text):
-            return "Sorry, I could not generate a meaningful response after multiple attempts."
+            # Attempts to generate a response
+            attempts = 0
+            response = ""
+            
+            while attempts < max_attempts:
+                attempts += 1
+                
+                # Generate response
+                with torch.no_grad():
+                    outputs = model.generate(
+                        **inputs,
+                        max_length=max_length,
+                        num_return_sequences=1,
+                        temperature=temperature,
+                        top_p=top_p,
+                        do_sample=True,
+                        pad_token_id=tokenizer.pad_token_id,
+                        eos_token_id=tokenizer.eos_token_id
+                    )
+                
+                # Decode response
+                response = tokenizer.decode(outputs[0], skip_special_tokens=True).strip()
+                
+                # Check that the answer is not repetitive or meaningless
+                if len(response.split()) > 3 and response != text:  # Check if the response is valid
+                    break  # If the response is valid, exit the loop
+                
+            if attempts == max_attempts and (not response or response == text):
+                return "Sorry, I could not generate a meaningful response after multiple attempts."
         
-    except Exception as e:
-        logger.error(f"Error generating response: {str(e)}")
-        return f"I apologize, but I encountered an error while processing your request. Please try again."
-    
+        except Exception as e:
+            logger.error(f"Error generating response: {str(e)}")
+            return f"I apologize, but I encountered an error while processing your request. Please try again."
+
     async def summarize_text(
         self,
         text: str,
