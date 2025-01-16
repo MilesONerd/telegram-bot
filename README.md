@@ -85,6 +85,10 @@ telegram-bot/
 - [x] Basic bot implementation
 - [x] Llama 3.1-Nemotron integration
 - [x] BART integration
+- [ ] Llama 3.3 integration
+- [ ] Mistral Mathstral
+- [ ] Mistral Mamba Codestral
+- [ ] Mistral Pixtral
 - [ ] Internet search integration
 - [ ] Continuous learning implementation
 - [ ] Advanced error handling
