@@ -43,7 +43,7 @@ class AIModelHandler:
             }
         }
         
-        self.default_model = os.getenv('DEFAULT_MODEL', 'gpt2')
+        self.default_model = os.getenv('DEFAULT_MODEL', 'llama')
         self.enable_learning = os.getenv('ENABLE_CONTINUOUS_LEARNING', 'true').lower() == 'true'
         
     async def initialize_models(self) -> bool:
@@ -79,14 +79,14 @@ class AIModelHandler:
                 logger.error(f"Error loading BART model: {str(e)}")
                 return False
             
-            # Initialize Llama 3.3 for general text generation
-            logger.info(f"Loading Llama 3.3 model: {self.model_configs['llama']['name']}")
+            # Initialize Llama for general text generation
+            logger.info(f"Loading Llama model: {self.model_configs['llama']['name']}")
             try:
                 self.tokenizers['llama'] = AutoTokenizer.from_pretrained(
                     self.model_configs['llama']['name'],
                     local_files_only=False
                 )
-                logger.info("Llama 3.3 tokenizer loaded successfully")
+                logger.info("Llama tokenizer loaded successfully")
                 
                 self.models['llama'] = AutoModelForCausalLM.from_pretrained(
                     self.model_configs['llama']['name'],
@@ -94,9 +94,9 @@ class AIModelHandler:
                     torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
                     local_files_only=False
                 )
-                logger.info("Llama 3.3 model loaded successfully")
+                logger.info("Llama model loaded successfully")
             except Exception as e:
-                logger.error(f"Error loading Llama 3.3 model: {str(e)}")
+                logger.error(f"Error loading Llama model: {str(e)}")
                 return False
             
             logger.info("All models initialized successfully")
